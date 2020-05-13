@@ -1,0 +1,40 @@
+{
+    "list": [
+        {
+            "txt": "Item 1",
+            "img": "/images/menu/image1.jpg"
+        },
+        {
+            "txt": "Item 2",
+            "img": "/images/menu/image2.jpg"
+        },
+        {
+            "txt": "Item 3",
+            "img": "/images/menu/image3.jpg"
+        },
+        {
+            "txt": "Item 4",
+            "img": "/images/menu/image4.jpg"
+        },
+        {
+            "txt": "Item 5",
+            "img": "/images/menu/image5.jpg"
+        },
+        {
+            "txt": "Item 6",
+            "img": "/images/menu/image6.jpg"
+        },
+        {
+            "txt": "Item 7",
+            "img": "/images/menu/image7.jpg"
+        },
+        {
+            "txt": "Item 8",
+            "img": "/images/menu/image8.jpg"
+        },
+        {
+            "txt": "Item 9",
+            "img": "/images/menu/image9.jpg"
+        }
+    ]
+}
