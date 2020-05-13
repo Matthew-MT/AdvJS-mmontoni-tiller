@@ -3,9 +3,10 @@ import {getElemPos, dragElem, makeDraggable, makeEditable} from "./dragelement.j
 
 /**
  * Author: Matthew MT
- * Date: 04/28/2020
+ * Date: 05/03/2020
  * Notes:
- * The following code is a bit rushed and convoluted at the same time, but works.
+ * This is based off of project 2, with heavy refactorization and modularization.
+ * To use this project, see final/server.js
  */
 
 const
@@ -39,9 +40,22 @@ window.addEventListener("load", async (event) => {
             drag = $("drag"),
             bag = $("bag");
         menu.splice(0, menu.length, ...(await (await fetch("http://" + location.host + "/static/menu.json", {method: "GET"})).json()).list);
+
+        document.cookie = "username=1;";
+        let temp, username, stored = document.cookie.match(/username=(\w)/);
+        if (stored || stored.length) temp = await (await fetch("http://" + location.host + "/dynamic/users/profile.json?user=" + (username = stored[1]), {method: "GET"})).json();
+        if (!username || !Object.keys(temp.data).length) {
+            username = await (await fetch("http://" + location.host + "/dynamic/util/randomID.json", {method: "GET"})).json();
+            if (!username || !username.data) alert("Could not generate a new username.");
+            else temp = await (await fetch("http://" + location.host + "/dynamic/users/profile.json?user=" + (username = username.data), {method: "GET"})).json();
+        }
+        if (username) document.cookie = "username=" + username + ";";
+        if (!Object.keys(temp.data)) ;
+        else elements.splice(elements.length - 1, 0, ...temp.data.cart);
         //console.log(elements);
     
         $("palette").innerHTML = dataToElements(menu, true);
+        $("main-zone").innerHTML = dataToElements(elements, false);
         makeDraggable(main, menu, drag, ".new-zone-element", true, elements, ".zone-element");
         //makeEditable(menu, drag, ".zone-element");
         let
@@ -55,23 +69,6 @@ window.addEventListener("load", async (event) => {
         bag.style.height = bagH_s;
         main.style.width = bagW_s;
         main.style.height = bagH_s;
-        /*main.style.height = "10.65rem";*/ 
+        /*main.style.height = "10.65rem";*/
     });
-
-    document.cookie = "username=1;";
-    let temp, username, stored = document.cookie.match(/username=(\w)/);
-    if (stored) temp = await (await fetch("http://" + location.host + "/dynamic/users/profile.json?user=" + stored[1], {method: "GET"/*, body: JSON.stringify({username: 1})*/})).json();
-    if (!temp.data) {
-        username = await (await fetch("http://" + location.host + "/dynamic/util/randomID.json", {method: "GET"/*, body: JSON.stringify({username: 1})*/})).json();
-        if (!username.data) alert("Could not generate a new username.");
-        else temp = await (await fetch("http://" + location.host + "/dynamic/users/profile.json?user=" + stored[1], {method: "GET"/*, body: JSON.stringify({username: 1})*/})).json();
-    }
-
-
-    /*console.log(await (await fetch("http://" + location.host + "/dynamic/users/profile.json", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({username: "1", cart: elements})
-    })).json());*/
-    //console.log(await (await fetch("http://" + location.host + "/dynamic/users/profile.json?user=1", {method: "GET"/*, body: JSON.stringify({username: 1})*/})).json());
 });

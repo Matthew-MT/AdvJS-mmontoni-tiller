@@ -1,3 +1,12 @@
+/**
+ * Author: Matthew MT
+ * Date: 05/03/2020
+ * Notes:
+ * This file is the server for this project.
+ * To start the server, open the path to this file in terminal and type "node ."
+ * Then, open a web browser and enter "localhost:9000"
+ */
+
 const
     port = 9000,
     express = require("express"),

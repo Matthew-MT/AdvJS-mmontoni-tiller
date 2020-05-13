@@ -1,3 +1,7 @@
+/**
+ * This file contains function wrappers for the mongodb API.
+ */
+
 const
     pass = "Q5VrDzGv2K9T3Rh1",
     MongoClient = require('mongodb').MongoClient,

@@ -1,5 +1,9 @@
 import {elemToData, dataToElements, forEachElem, $, zElem, contains} from "./util.js";
 
+/**
+ * This file contains most of the relevant functions to make element dragging work.
+ */
+
 function* holdingElement() {
     let cur = false;
     while (true) cur = (yield cur) ? !cur : cur;
@@ -107,7 +111,7 @@ export function dragElem(main, elements, drag, elem, addNew, addTo, query = "") 
             drag.style.left = (drag.offsetLeft - pos[0]) + "px";
             drag.style.top = (drag.offsetTop - pos[1]) + "px"; // These lines update the drag element's position when the mouse moves
         }
-        function dragInternalMouseUp(e) {
+        async function dragInternalMouseUp(e) {
             e.preventDefault();
             document.removeEventListener("mousemove", update);
             document.removeEventListener("mousemove", dragInternalMove);
@@ -129,6 +133,13 @@ export function dragElem(main, elements, drag, elem, addNew, addTo, query = "") 
                 else makeDraggable(main, addTo, drag, query);
             }
             newOrCur.next(-1); // When the mouse is released, re-initialize all elements with their proper functionality and style
+
+            let username = document.cookie.match(/username=(\w)/);
+            if (username && username[1]) fetch("http://" + location.host + "/dynamic/users/profile.json", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username: username[1], cart: [...addTo]})
+            });
         }
 
         document.addEventListener("mousemove", update);
