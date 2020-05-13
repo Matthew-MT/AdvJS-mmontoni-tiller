@@ -50,3 +50,20 @@ The code used under the hood is quite complex, so this should be an interesting 
 ### Instructions
 Simply open the file `index.html` in a web browser, and play around with the draggable elements.
 More detailed instructions are included on the webpage.
+
+## Final Project
+
+### Notes
+#### Name: Online restaurant menu
+This project is a prototype of an online order-taking site.
+One major function of it (to display the functionality of mongodb and http requests) is that if you leave the page,
+when you return, your cart will still have the same items in it.
+This is to show how this website will work when both the restaurant and customers are using it,
+so that the restaurant can actually see each person's order.
+- Doesn't use external libraries except for nodejs and mongodb intentionally - Once more, base functionality was fun to learn
+- Fully contained server/client application
+- Drag-and-drop interface, order persistence
+
+### Instructions
+Open the file `final/server.js` in the terminal and type `node .` to start the server.
+Then, in your web browser, enter the address `localhost:9000`.
